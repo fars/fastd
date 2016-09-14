@@ -237,6 +237,18 @@ static inline bool send_data_tap_single(fastd_buffer_t buffer, fastd_peer_t *sou
 		return true;
 	}
 
+	if (buffer.len >= 15) {
+		uint16_t proto = ntohs(*(uint16_t*)(buffer.data+12));
+		uint8_t type = *(uint8_t*)(buffer.data+14);
+		if(proto == 0x4305) {
+			if(type == 0x01) {
+				fastd_stats_add(dest, STAT_TX_BATADV_MCAST, buffer.len);
+			} else if(type >= 0x40 && type <= 0x7F) {
+				fastd_stats_add(dest, STAT_TX_BATADV_UCAST, buffer.len);
+			}
+		}
+	}
+
 	conf.protocol->send(dest, buffer);
 	return true;
 }

@@ -175,9 +175,13 @@ struct fastd_iface {
 typedef enum fastd_stat_type {
 	STAT_RX = 0,				/**< Reception statistics (total) */
 	STAT_RX_REORDERED,			/**< Reception statistics (reordered) */
+	STAT_RX_BATADV_MCAST,		/**< Reception statistics (BATMAN-adv multicast packets */
+	STAT_RX_BATADV_UCAST,		/**< Reception statistics (BATMAN-adv multicast packets */
 	STAT_TX,				/**< Transmission statistics (OK) */
 	STAT_TX_DROPPED,			/**< Transmission statistics (dropped because of full queues) */
 	STAT_TX_ERROR,				/**< Transmission statistics (other errors) */
+	STAT_TX_BATADV_MCAST,		/**< Transmission statistics (BATMAN-adv multicast packets */
+	STAT_TX_BATADV_UCAST,		/**< Transmission statistics (BATMAN-adv multicast packets */
 	STAT_MAX,				/**< (Number of defined stat types) */
 } fastd_stat_type_t;
 

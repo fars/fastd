@@ -97,10 +97,14 @@ static json_object * dump_stats(const fastd_stats_t *stats) {
 
 	json_object_object_add(statistics, "rx", dump_stat(stats, STAT_RX));
 	json_object_object_add(statistics, "rx_reordered", dump_stat(stats, STAT_RX_REORDERED));
+	json_object_object_add(statistics, "rx_batadv_mcast", dump_stat(stats, STAT_RX_BATADV_MCAST));
+	json_object_object_add(statistics, "rx_batadv_ucast", dump_stat(stats, STAT_RX_BATADV_UCAST));
 
 	json_object_object_add(statistics, "tx", dump_stat(stats, STAT_TX));
 	json_object_object_add(statistics, "tx_dropped", dump_stat(stats, STAT_TX_DROPPED));
 	json_object_object_add(statistics, "tx_error", dump_stat(stats, STAT_TX_ERROR));
+	json_object_object_add(statistics, "tx_batadv_mcast", dump_stat(stats, STAT_TX_BATADV_MCAST));
+	json_object_object_add(statistics, "tx_batadv_ucast", dump_stat(stats, STAT_TX_BATADV_UCAST));
 
 	return statistics;
 }

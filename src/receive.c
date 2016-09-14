@@ -299,6 +299,18 @@ void fastd_handle_receive(fastd_peer_t *peer, fastd_buffer_t buffer, bool reorde
 
 		if (fastd_eth_addr_is_unicast(src_addr))
 			fastd_peer_eth_addr_add(peer, src_addr);
+
+		if (buffer.len >= 15) {
+			uint16_t proto = ntohs(*(uint16_t*)(buffer.data+12));
+			uint8_t type = *(uint8_t*)(buffer.data+14);
+			if(proto == 0x4305) {
+				if(type == 0x01) {
+					fastd_stats_add(peer, STAT_RX_BATADV_MCAST, buffer.len);
+				} else if(type >= 0x40 && type <= 0x7F) {
+					fastd_stats_add(peer, STAT_RX_BATADV_UCAST, buffer.len);
+				}
+			}
+		}
 	}
 
 	fastd_stats_add(peer, STAT_RX, buffer.len);
